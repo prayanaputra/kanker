@@ -75,20 +75,31 @@ if st.button('Predict'):
 # Load the dataset for accuracy calculation
 try:
     data = pd.read_csv('breastcancer.csv')  # Update with the correct path to your dataset
+    
+    st.write(f"Dataset loaded. Shape: {data.shape}")
+    st.write(data.head())
+
     # Ensure data is numeric and handle missing values
     data = data.apply(pd.to_numeric, errors='coerce').dropna()
     
-    # Assuming the last column is the target
-    X = data.iloc[:, :-1]
-    y = data.iloc[:, -1]
+    st.write(f"Processed dataset. Shape: {data.shape}")
+    st.write(data.head())
+    
+    # Check if data is empty after processing
+    if data.empty:
+        st.error("The processed dataset is empty. Please check your data.")
+    else:
+        # Assuming the last column is the target
+        X = data.iloc[:, :-1]
+        y = data.iloc[:, -1]
 
-    # Make predictions on the dataset
-    predictions = model.predict(X)
+        # Make predictions on the dataset
+        predictions = model.predict(X)
 
-    # Calculate accuracy
-    accuracy = accuracy_score(y, predictions)
+        # Calculate accuracy
+        accuracy = accuracy_score(y, predictions)
 
-    st.write(f"Model Accuracy: {accuracy * 100:.2f}%")
+        st.write(f"Model Accuracy: {accuracy * 100:.2f}%")
 
 except FileNotFoundError:
     st.error("Dataset file not found. Please ensure 'breastcancer.csv' is in the correct location.")
