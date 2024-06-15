@@ -14,7 +14,7 @@ st.set_page_config(
 )
 
 # Load and display an image
-image = Image.open("breast_cancer_image.png")  # Ensure the image file is in the same directory or provide the correct path
+image = Image.open("logo.jpg")
 st.image(image, use_column_width=True)
 
 # Define the front end interface
