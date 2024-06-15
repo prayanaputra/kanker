@@ -81,11 +81,15 @@ try:
 
     # Check for non-numeric values and missing values
     st.write("Checking for non-numeric values and missing values...")
+
     non_numeric = data.applymap(lambda x: not pd.api.types.is_numeric_dtype(type(x)))
     if non_numeric.any().any():
         st.write("Non-numeric values found in the dataset:")
-        st.write(data.loc[:, non_numeric.any()])
-    
+        for column in data.columns:
+            if non_numeric[column].any():
+                st.write(f"Column '{column}' contains non-numeric values.")
+                st.write(data.loc[non_numeric[column], column])
+
     missing_values = data.isna().sum()
     if missing_values.any():
         st.write("Missing values found in the dataset:")
