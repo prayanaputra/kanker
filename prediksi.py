@@ -21,9 +21,6 @@ except FileNotFoundError:
 
 # Load and display an image
 # Assuming you have a logo.jpg file for display
-# Adjust the path if necessary
-image = Image.open("logo.jpg")
-st.image(image, use_column_width=True)
 
 # Define the front end interface
 st.title('Breast Cancer Prediction')
