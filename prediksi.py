@@ -1,6 +1,8 @@
 import pickle
 import streamlit as st
 from PIL import Image
+import pandas as pd
+from sklearn.metrics import accuracy_score
 
 # Set page config
 st.set_page_config(
@@ -60,6 +62,21 @@ if st.button('Predict'):
         st.write('The tumor is benign')
     else:
         st.write('The tumor is malignant')
+
+# Load the dataset for accuracy calculation
+data = pd.read_csv('breast_cancer_data.csv')  # Update with the correct path to your dataset
+
+# Assuming the last column is the target
+X = data.iloc[:, :-1]
+y = data.iloc[:, -1]
+
+# Make predictions on the dataset
+predictions = model.predict(X)
+
+# Calculate accuracy
+accuracy = accuracy_score(y, predictions)
+
+st.write(f"Model Accuracy: {accuracy * 100:.2f}%")
 
 # Footer
 st.markdown(
