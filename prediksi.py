@@ -74,7 +74,7 @@ if st.button('Predict'):
 
 # Load the dataset for accuracy calculation
 try:
-    data = pd.read_csv('breast_cancer_data.csv')  # Update with the correct path to your dataset
+    data = pd.read_csv('breastcancer.csv')  # Update with the correct path to your dataset
     # Ensure data is numeric and handle missing values
     data = data.apply(pd.to_numeric, errors='coerce').dropna()
     
@@ -91,7 +91,7 @@ try:
     st.write(f"Model Accuracy: {accuracy * 100:.2f}%")
 
 except FileNotFoundError:
-    st.error("Dataset file not found. Please ensure 'breast_cancer_data.csv' is in the correct location.")
+    st.error("Dataset file not found. Please ensure 'breastcancer.csv' is in the correct location.")
 except Exception as e:
     st.error(f"An error occurred while calculating accuracy: {e}")
 
