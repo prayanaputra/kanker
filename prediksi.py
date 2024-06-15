@@ -2,12 +2,6 @@ import pickle
 import streamlit as st
 from PIL import Image
 
-# Load the model
-model = pickle.load(open('breast.sav', 'rb'))
-
-# Define the front end interface
-st.title('Breast Cancer Prediction')
-
 # Set page config
 st.set_page_config(
     page_title="Breast Cancer Prediction",
@@ -16,11 +10,16 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Load the model
+model = pickle.load(open('breast.sav', 'rb'))
+
 # Load and display an image
 image = Image.open("logo.jpg")
 st.image(image, use_column_width=True)
 
 # Define the front end interface
+st.title('Breast Cancer Prediction')
+
 st.markdown(
     """
     <style>
@@ -35,8 +34,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-st.title('Breast Cancer Prediction')
 
 st.markdown(
     """
@@ -56,14 +53,14 @@ normal_nucleoli = st.number_input('Normal Nucleoli')
 mitoses = st.number_input('Mitoses')
 
 if st.button('Predict'):
-    input_data = (clump_thickness, cell_size_uniformity, cell_shape_uniformity, marginal_adhesion, single_epi_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses)
-    prediction = model.predict([input_data])
+    input_data = [[clump_thickness, cell_size_uniformity, cell_shape_uniformity, marginal_adhesion, single_epi_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses]]
+    prediction = model.predict(input_data)
 
     if prediction[0] == 0:
         st.write('The tumor is benign')
     else:
         st.write('The tumor is malignant')
-        
+
 # Footer
 st.markdown(
     """
