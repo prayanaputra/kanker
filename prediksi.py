@@ -74,15 +74,28 @@ if st.button('Predict'):
 
 # Load the dataset for accuracy calculation
 try:
-    data = pd.read_csv('breastcancer.csv')  # Update with the correct path to your dataset
+    data = pd.read_csv('breastcancer.csv')  # Correct dataset name
     
-    st.write(f"Dataset loaded. Shape: {data.shape}")
+    st.write("Dataset loaded. Shape before processing:", data.shape)
     st.write(data.head())
 
-    # Ensure data is numeric and handle missing values
-    data = data.apply(pd.to_numeric, errors='coerce').dropna()
+    # Check for non-numeric values and missing values
+    st.write("Checking for non-numeric values and missing values...")
+    non_numeric = data.applymap(lambda x: not pd.api.types.is_numeric_dtype(type(x)))
+    if non_numeric.any().any():
+        st.write("Non-numeric values found in the dataset:")
+        st.write(data.loc[:, non_numeric.any()])
     
-    st.write(f"Processed dataset. Shape: {data.shape}")
+    missing_values = data.isna().sum()
+    if missing_values.any():
+        st.write("Missing values found in the dataset:")
+        st.write(missing_values[missing_values > 0])
+
+    # Ensure data is numeric and handle missing values
+    data = data.apply(pd.to_numeric, errors='coerce')
+    data = data.dropna()
+    
+    st.write("Processed dataset. Shape after processing:", data.shape)
     st.write(data.head())
     
     # Check if data is empty after processing
