@@ -1,6 +1,5 @@
 import pickle
 import streamlit as st
-from PIL import Image
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.exceptions import NotFittedError
@@ -21,6 +20,8 @@ except FileNotFoundError:
     st.stop()
 
 # Load and display an image
+# Assuming you have a logo.jpg file for display
+# Adjust the path if necessary
 image = Image.open("logo.jpg")
 st.image(image, use_column_width=True)
 
@@ -60,10 +61,11 @@ normal_nucleoli = st.number_input('Normal Nucleoli')
 mitoses = st.number_input('Mitoses')
 
 if st.button('Predict'):
-    input_data = [[clump_thickness, cell_size_uniformity, cell_shape_uniformity, marginal_adhesion, single_epi_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses]]
+    input_data = [[clump_thickness, cell_size_uniformity, cell_shape_uniformity, marginal_adhesion, 
+                   single_epi_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses]]
     try:
         prediction = model.predict(input_data)
-        if prediction['benign'] == 'benign':
+        if prediction == 0:
             st.write('The tumor is benign')
         else:
             st.write('The tumor is malignant')
