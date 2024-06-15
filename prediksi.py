@@ -64,7 +64,7 @@ if st.button('Predict'):
         st.write('The tumor is malignant')
 
 # Load the dataset for accuracy calculation
-data = pd.read_csv('breast_cancer_data.csv')  # Update with the correct path to your dataset
+data = pd.read_csv('breastcancer.csv')  # Update with the correct path to your dataset
 
 # Assuming the last column is the target
 X = data.iloc[:, :-1]
