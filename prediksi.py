@@ -63,7 +63,7 @@ if st.button('Predict'):
     input_data = [[clump_thickness, cell_size_uniformity, cell_shape_uniformity, marginal_adhesion, single_epi_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses]]
     try:
         prediction = model.predict(input_data)
-        if prediction[0] == 0:
+        if prediction['benign'] == 'benign':
             st.write('The tumor is benign')
         else:
             st.write('The tumor is malignant')
