@@ -81,7 +81,7 @@ if st.button('Predict'):
 st.markdown(
     """
     <hr>
-    <p style="text-align:center;">Made with ❤️ by Your Name</p>
+    <p style="text-align:center;">Kelompok 1 - Machine Learning SI 02</p>
     """,
     unsafe_allow_html=True
 )
