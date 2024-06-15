@@ -14,7 +14,7 @@ st.set_page_config(
 
 # Load the model
 try:
-    model = pickle.load(open('breast.sav', 'rb'))
+    model = pickle.load(open('kanker.sav', 'rb'))
 except FileNotFoundError:
     st.error("Model file not found. Please ensure 'breast.sav' is in the correct location.")
     st.stop()
